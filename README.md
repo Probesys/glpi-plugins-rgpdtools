@@ -1,11 +1,18 @@
 # RgpdTools GLPI plugin
 
-Add your plugin description here.
+This plugin offer tools to manage RGPD user informations.
+With this plugin you can :
 
-## Contributing
+* Export user information and information about linked elements
+* Delete Link between one user and it's linked elements
+* Purge User information on history logs
 
-* Open a ticket for each bug/feature so it can be discussed
-* Follow [development guidelines](http://glpi-developer-documentation.readthedocs.io/en/latest/plugins/index.html)
-* Refer to [GitFlow](http://git-flow.readthedocs.io/) process for branching
-* Work on a new branch on your own fork
-* Open a PR that will be reviewed by a developer
+## Installation
+
+Before installing the plugin, check that you have the php zip extension installed
+
+* Copy the rgpdtools folder to the glpi plugin folder
+On console : 
+* Run "php composer.phar update" in the plugin tree
+* Run "php bin/console glpi:plugin:install rgpdtools" in the glpi tree
+* Run "php bin/console glpi:plugin:activate rgpdtools" in the glpi tree

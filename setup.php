@@ -1,4 +1,5 @@
 <?php
+
 /**
  * -------------------------------------------------------------------------
  * RgpdTools plugin for GLPI
@@ -27,8 +28,14 @@
  *
  * --------------------------------------------------------------------------
  */
-
-define('PLUGIN_RGPDTOOLS_VERSION', '0.0.1');
+define('PLUGIN_RGPDTOOLS_VERSION', '0.1.2');
+define('PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION', '9.5');
+if (!defined("PLUGIN_RGPDTOOLS_DIR")) {
+    define('PLUGIN_RGPDTOOLS_DIR', Plugin::getPhpDir('rgpdtools'));
+}
+if (!defined("PLUGIN_RGPDTOOLS_WEB_DIR")) {
+    define("PLUGIN_RGPDTOOLS_WEB_DIR", Plugin::getWebDir('rgpdtools'));
+}
 
 /**
  * Init hooks of the plugin.
@@ -36,12 +43,20 @@ define('PLUGIN_RGPDTOOLS_VERSION', '0.0.1');
  *
  * @return void
  */
-function plugin_init_rgpdtools() {
-   global $PLUGIN_HOOKS;
+function plugin_init_rgpdtools()
+{
+    global $PLUGIN_HOOKS;
 
-   $PLUGIN_HOOKS['csrf_compliant']['rgpdtools'] = true;
+    $PLUGIN_HOOKS['csrf_compliant']['rgpdtools'] = true;
+
+    Plugin::registerClass(
+        'PluginRgpdtoolsRgpdTools',
+        [
+          'addtabon' => ['User'],
+        ]
+    );
+    $PLUGIN_HOOKS['menu_toadd']['rgpdtools'] = ['tools'   => 'PluginRgpdtoolsRgpdTools'];
 }
-
 
 /**
  * Get the name and the version of the plugin
@@ -49,19 +64,20 @@ function plugin_init_rgpdtools() {
  *
  * @return array
  */
-function plugin_version_rgpdtools() {
-   return [
-      'name'           => 'RgpdTools',
-      'version'        => PLUGIN_RGPDTOOLS_VERSION,
-      'author'         => '<a href="http://www.teclib.com">Teclib\'</a>',
-      'license'        => '',
-      'homepage'       => '',
-      'requirements'   => [
-         'glpi' => [
-            'min' => '9.5',
-         ]
-      ]
-   ];
+function plugin_version_rgpdtools()
+{
+    return [
+        'name' => __('RgpdTools', 'rgpdtools'),
+        'version' => PLUGIN_RGPDTOOLS_VERSION,
+        'author' => '<a href="http://www.probesys.com">Probesys</a>',
+        'license' => '<a href="' . Plugin::getPhpDir('rgpdtools', false) . '/LICENSE" target="_blank">AGPLv3</a>',
+        'homepage' => '',
+        'requirements' => [
+            'glpi' => [
+                'min' => PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION,
+            ]
+        ]
+    ];
 }
 
 /**
@@ -70,9 +86,9 @@ function plugin_version_rgpdtools() {
  *
  * @return boolean
  */
-function plugin_rgpdtools_check_prerequisites() {
-
-   return true;
+function plugin_rgpdtools_check_prerequisites()
+{
+    return true;
 }
 
 /**
@@ -82,13 +98,14 @@ function plugin_rgpdtools_check_prerequisites() {
  *
  * @return boolean
  */
-function plugin_rgpdtools_check_config($verbose = false) {
-   if (true) { // Your configuration check
-      return true;
-   }
+function plugin_rgpdtools_check_config($verbose = false)
+{
+    if (true) { // Your configuration check
+        return true;
+    }
 
-   if ($verbose) {
-      echo __('Installed / not configured', 'rgpdtools');
-   }
-   return false;
+    if ($verbose) {
+        echo __('Installed / not configured');
+    }
+    return false;
 }

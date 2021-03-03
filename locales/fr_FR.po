@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the RgpdTools package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: RgpdTools 0.0.1\n"
+"Report-Msgid-Bugs-To: contact@probesys.com\n"
+"POT-Creation-Date: 2021-03-05 14:01+0100\n"
+"PO-Revision-Date: 2021-03-30 08:39+0200\n"
+"Last-Translator: probeSys <contact@probesys.com>\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: setup.php:71 front/rgpdtools.form.php:35 inc/rgpdtools.class.php:47
+msgctxt "rgpdtools"
+msgid "RgpdTools"
+msgstr "Utilitaires RGPD"
+
+#: front/rgpdtools.form.php:9
+msgctxt "rgpdtools"
+msgid "Export successfully generated."
+msgstr "Export généré avec succès."
+
+#: front/rgpdtools.form.php:20
+msgctxt "rgpdtools"
+msgid "No links matching criteria were founded, no update query were executed."
+msgstr ""
+"Aucun lien trouvé correspondant aux filtres, aucune requête de mise à jour "
+"exécutée."
+
+#: front/rgpdtools.form.php:29
+msgctxt "rgpdtools"
+msgid "Logs contains information about the user were anonymize successfully."
+msgstr ""
+"Les logs contenant des informations relatives à l'utilisateur ont été "
+"anonymisés avec succès."
+
+#: inc/rgpdtools.class.php:10
+msgctxt "rgpdtools"
+msgid "Run \"composer install --no-dev\" in the plugin tree"
+msgstr "Executer \"composer install --no-dev\" dans le dossier du plugin"
+
+#: inc/rgpdtools.class.php:180 inc/rgpdtools.class.php:250
+#: inc/rgpdtools.class.php:346
+msgctxt "rgpdtools"
+msgid "Are you sure you want to execute this operation"
+msgstr "Etes vous certain de vouloir exécuter cette opération"
+
+#: inc/rgpdtools.class.php:186
+msgctxt "rgpdtools"
+msgid "Export users data"
+msgstr "Export des données de l'utilisateur"
+
+#: inc/rgpdtools.class.php:204
+msgctxt "rgpdtools"
+msgid "Choosing what to export"
+msgstr "Sélectionner les éléments à exporter"
+
+#: inc/rgpdtools.class.php:255
+msgctxt "rgpdtools"
+msgid "Removal of links to the user"
+msgstr "Suppression des liens vers l'utilisateur"
+
+#: inc/rgpdtools.class.php:273
+msgctxt "rgpdtools"
+msgid "Choice of elements for which to remove links to the user"
+msgstr ""
+"Sélection des types d'éléments pour lesquels supprimer les liens avec "
+"l'utilisateur"
+
+#: inc/rgpdtools.class.php:274
+msgctxt "rgpdtools"
+msgid "For each item, retention period"
+msgstr "Pour chaque type d'élément, durée de rétention"
+
+#: inc/rgpdtools.class.php:310
+msgid "User"
+msgid_plural "User"
+msgstr[0] "Utilisateur"
+msgstr[1] "Utilisateurs"
+
+#: inc/rgpdtools.class.php:320
+msgctxt "rgpdtools"
+msgid "Apply to all users"
+msgstr "Appliquer à tout les utilisateurs"
+
+#: inc/rgpdtools.class.php:351
+msgctxt "rgpdtools"
+msgid "Purge logs referring to the user"
+msgstr "Suppression des logs faisant référence à l'utilisateur"
+
+#: inc/rgpdtools.class.php:355
+msgctxt "rgpdtools"
+msgid "Retention Period"
+msgstr "Durée de rétention"
+
+#: inc/rgpdtools.class.php:523
+#, php-format
+msgctxt "rgpdtools"
+msgid "The class %1$s can't be instanciate because not finded on GLPI."
+msgstr ""
+"La classe %1$s n'a pu être instancé car elle n'est pas présente dans GLPI."

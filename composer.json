@@ -1,6 +1,7 @@
 {
     "require": {
-        "php": ">=4.2"
+        "php": ">=4.2",
+        "phpoffice/phpspreadsheet": "^1.17"
     },
     "require-dev": {
         "glpi-project/tools": "^0.1"
