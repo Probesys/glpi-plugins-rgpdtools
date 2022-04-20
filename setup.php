@@ -28,7 +28,7 @@
  *
  * --------------------------------------------------------------------------
  */
-define('PLUGIN_RGPDTOOLS_VERSION', '0.1.2');
+define('PLUGIN_RGPDTOOLS_VERSION', '0.1.3');
 define('PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION', '9.5');
 if (!defined("PLUGIN_RGPDTOOLS_DIR")) {
     define('PLUGIN_RGPDTOOLS_DIR', Plugin::getPhpDir('rgpdtools'));
