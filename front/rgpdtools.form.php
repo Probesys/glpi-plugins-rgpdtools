@@ -1,13 +1,17 @@
 <?php
 
 include('../../../inc/includes.php');
+Session::checkRight("user", PURGE);
 
 $PluginRgpdtoolsRgpdtools = new PluginRgpdtoolsRgpdtools();
+$includeGlpiDom = true;
 
 if (isset($_REQUEST['generate'])) {
     if ($PluginRgpdtoolsRgpdtools::generateExport($_POST)) {
         Session::addMessageAfterRedirect(__('Export successfully generated.', 'rgpdtools'), true);
+        
     }
+    $includeGlpiDom = false;
     //Html::back();
 }
 
@@ -30,9 +34,10 @@ if (isset($_REQUEST['purgeUserLogs'])) {
     }
     Html::back();
 }
-
-// standard form
-Html::header(__('RgpdTools', 'rgpdtools'), $_SERVER['PHP_SELF'], 'tools', 'rgpdtools');
-$PluginRgpdtoolsRgpdtools = new PluginRgpdtoolsRgpdtools();
-$PluginRgpdtoolsRgpdtools->getFormsForCompleteForm();
-Html::footer();
+if($includeGlpiDom) {
+    // standard form
+    Html::header(__('RgpdTools', 'rgpdtools'), $_SERVER['PHP_SELF'], 'tools', 'rgpdtools');
+    $PluginRgpdtoolsRgpdtools = new PluginRgpdtoolsRgpdtools();
+    $PluginRgpdtoolsRgpdtools->getFormsForCompleteForm();
+    Html::footer();
+}

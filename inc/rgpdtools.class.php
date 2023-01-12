@@ -16,24 +16,21 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class PluginRgpdtoolsRgpdtools
-{
-    public function __construct()
-    {
+class PluginRgpdtoolsRgpdtools {
+
+    public function __construct() {
+        
     }
 
-    public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0)
-    {
+    public function getTabNameForItem(CommonGLPI $item, $withtemplate = 0) {
         switch ($item::getType()) {
             case User::getType():
                 return __('RgpdTools', 'rgpdtools');
-                break;
         }
         return '';
     }
 
-    public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0)
-    {
+    public static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0) {
         switch ($item::getType()) {
             case User::getType():
                 self::displayTabContentForUser($item);
@@ -43,18 +40,15 @@ class PluginRgpdtoolsRgpdtools
         return true;
     }
 
-    public static function getMenuName()
-    {
+    public static function getMenuName() {
         return __('RgpdTools', 'rgpdtools');
     }
 
-    public static function getIcon()
-    {
+    public static function getIcon() {
         return "fa fa-user-shield";
     }
 
-    public static function getMenuContent()
-    {
+    public static function getMenuContent() {
         $menu = [
             'title' => self::getMenuName(),
             'page' => Plugin::getPhpDir('rgpdtools', false) . '/front/rgpdtools.form.php',
@@ -64,8 +58,7 @@ class PluginRgpdtoolsRgpdtools
         return $menu;
     }
 
-    public static function anonymizeUserLogs($POST)
-    {
+    public static function anonymizeUserLogs($POST) {
         $userID = $POST['userID'];
         if (!$userID) {
             Session::addMessageAfterRedirect(__("user is required", 'rgpdtools'), true, WARNING, true);
@@ -77,8 +70,7 @@ class PluginRgpdtoolsRgpdtools
         return true;
     }
 
-    public static function deleteUserLinkItems($POST)
-    {
+    public static function deleteUserLinkItems($POST) {
         $userID = $POST['userID'];
         $allUser = array_key_exists('allUser', $POST);
         if (!$userID && !$allUser) {
@@ -95,8 +87,7 @@ class PluginRgpdtoolsRgpdtools
         return $nbUnlinkedElmts;
     }
 
-    public static function generateExport($POST)
-    {
+    public static function generateExport($POST) {
         $userID = $POST['userID'];
         if (!$userID) {
             Session::addMessageAfterRedirect(__("user is required", 'rgpdtools'), true, WARNING, true);
@@ -140,18 +131,17 @@ class PluginRgpdtoolsRgpdtools
                 }
             }
         }
-
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header("Pragma: no-cache");
         header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-        header("Cache-Control: post-check=0, pre-check=0", false);
+        header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
         $writer = new Ods($spreadsheet);
         $writer->save('php://output');
     }
 
-    private static function displayTabContentForUser(User $item)
-    {
+    private static function displayTabContentForUser(User $item) {
         $users_id = $item->getField('id');
         $itemsTypes = self::getUserAssociableItemTypes();
         $html = '';
@@ -162,8 +152,7 @@ class PluginRgpdtoolsRgpdtools
         echo $html;
     }
 
-    public function getFormsForCompleteForm()
-    {
+    public function getFormsForCompleteForm() {
         $itemsTypes = self::getUserAssociableItemTypes();
         $html = '';
         $users_id = null;
@@ -174,8 +163,7 @@ class PluginRgpdtoolsRgpdtools
         echo $html;
     }
 
-    private static function generateExportForm($users_id, $itemsTypes)
-    {
+    private static function generateExportForm($users_id, $itemsTypes) {
         $html = '';
         $rand = mt_rand();
         $idForm = "useritemsexport_form$rand";
@@ -184,7 +172,6 @@ class PluginRgpdtoolsRgpdtools
         $html .= "<form method='post' name='$idForm' id='$idForm'
                   action=\"" . Plugin::getWebDir('rgpdtools') . "/front/rgpdtools.form.php\" onsubmit=\"return confirm('" . __('Are you sure you want to execute this operation', 'rgpdtools') . "?');\">";
         $html .= '<div class="spaced">';
-
         $html .= "<table class='tab_cadre_fixe'>";
         $html .= '<tbody>';
         $html .= '<tr class="headerRow center">';
@@ -233,8 +220,7 @@ class PluginRgpdtoolsRgpdtools
         return $html;
     }
 
-    private static function generateUnlinkItemsForm($users_id, $itemsTypes)
-    {
+    private static function generateUnlinkItemsForm($users_id, $itemsTypes) {
         $html = '';
         $rand = mt_rand();
 
@@ -309,8 +295,7 @@ class PluginRgpdtoolsRgpdtools
         return $html;
     }
 
-    private static function getUserIdBlock($users_id, $withAlluserCheckbox = false)
-    {
+    private static function getUserIdBlock($users_id, $withAlluserCheckbox = false) {
         $user = '';
         $html = '';
         if ($users_id) {
@@ -339,8 +324,7 @@ class PluginRgpdtoolsRgpdtools
         return $html;
     }
 
-    private static function generateAnonymiseForm($users_id)
-    {
+    private static function generateAnonymiseForm($users_id) {
         $html = '';
         $rand = mt_rand();
         $config = [
@@ -387,8 +371,7 @@ class PluginRgpdtoolsRgpdtools
      * @param ID of user
      * @return array
      */
-    private static function getAllUsedItemsForUser($ID)
-    {
+    private static function getAllUsedItemsForUser($ID) {
         global $DB;
 
         $items = [];
@@ -424,12 +407,12 @@ class PluginRgpdtoolsRgpdtools
 
         // Consumables
         $consumables = $DB->request(
-            [
+                [
                     'SELECT' => ['name', 'otherserial'],
                     'FROM' => ConsumableItem::getTable(),
                     'WHERE' => [
                         'id' => new QuerySubQuery(
-                            [
+                                [
                             'SELECT' => 'consumableitems_id',
                             'FROM' => Consumable::getTable(),
                             'WHERE' => [
@@ -447,7 +430,7 @@ class PluginRgpdtoolsRgpdtools
 
         // Tickets
         $tickets = $DB->request(
-            [
+                [
                     'SELECT' => ['*'],
                     //'DISTINCT' => true,
                     'FROM' => Ticket::getTable(),
@@ -494,8 +477,7 @@ class PluginRgpdtoolsRgpdtools
         return $items;
     }
 
-    private static function getUserAssociableItemTypes()
-    {
+    private static function getUserAssociableItemTypes() {
         global $CFG_GLPI;
 
         $moreTypes = ['Ticket', 'ITILFollowup', 'TicketTask'];
@@ -503,8 +485,7 @@ class PluginRgpdtoolsRgpdtools
         return array_merge($CFG_GLPI['linkuser_types'], $moreTypes);
     }
 
-    private static function injectRowHeader($spreadsheet, $objectInfos, $itemType)
-    {
+    private static function injectRowHeader($spreadsheet, $objectInfos, $itemType) {
         $col = 1;
         $row = 1;
         $sheet = $spreadsheet->getActiveSheet();
@@ -518,8 +499,7 @@ class PluginRgpdtoolsRgpdtools
         return $row++;
     }
 
-    private static function injectRowValues($spreadsheet, $objectInfos, $row, $itemType)
-    {
+    private static function injectRowValues($spreadsheet, $objectInfos, $row, $itemType) {
         $col = 1;
         $sheet = $spreadsheet->getActiveSheet();
         $exportablefields = self::getExportablefields($itemType);
@@ -532,9 +512,7 @@ class PluginRgpdtoolsRgpdtools
         return $row++;
     }
 
-    private static function getUserInfos($user)
-    {
-        $infos = [];
+    private static function getUserInfos($user) {
 
         $infos = [
             'id' => $user->getID(),
@@ -550,7 +528,6 @@ class PluginRgpdtoolsRgpdtools
             'date_mod' => $user->getField('date_mod'),
         ];
 
-
         return $infos;
     }
 
@@ -559,8 +536,7 @@ class PluginRgpdtoolsRgpdtools
      * @param type $className
      * @return string
      */
-    private static function getExportablefields($className)
-    {
+    private static function getExportablefields($className) {
         $fields = [];
         // id fields is empty, all fields are export
         switch ($className) {
@@ -574,27 +550,38 @@ class PluginRgpdtoolsRgpdtools
         return $fields;
     }
 
-    private static function unlinkUserAssociateElementsToDate($userID, $className, $retentionPeriod, $allUser = false)
-    {
+    private static function unlinkUserAssociateElementsToDate($userID, $className, $retentionPeriod, $allUser = false) {
         global $DB;
         if (!class_exists($className)) {
             $errorMessage = sprintf(
-                __('The class %1$s can\'t be instanciate because not finded on GLPI.', 'rgpdtools'),
-                $className
+                    __('The class %1$s can\'t be instanciate because not finded on GLPI.', 'rgpdtools'),
+                    $className
             );
             throw new Exception($errorMessage);
         }
-        $date = new DateTime();
-        $date->sub(new DateInterval('P' . $retentionPeriod . 'M'));
+        // retention period string restriction
+        $retentionPeriodWhere = '';
+        if($retentionPeriod > 0) {
+            $date = new DateTime();
+            $date->sub(new DateInterval('P' . $retentionPeriod . 'M'));
+            $retentionPeriodWhere = " AND lg.date_mod <= '" . $date->format('Y-m-d') . "'" ;
+        }
 
         $log = new Log();
+        
         $object = new $className();
-        //$object = new Computer(); // for test
         // recherche des éléments liés au user en bdd
+        $itemSelector = 'id';
+        $moreOnCriterais = '';
+        if($className == 'Ticket'){
+            $object = new Ticket_User();
+            $itemSelector = 'tickets_id';
+        }
         $querySelect = "SELECT t1.id FROM " . $object->getTable() . " t1 "
-                . "INNER JOIN " . $log->getTable() . " lg ON t1.id = lg.items_id AND itemtype='" . $className . "' AND 	id_search_option=70 "
-                . "WHERE new_value LIKE '% (" . $userID . ")' AND lg.date_mod <= '" . $date->format('Y-m-d') . "' "
+                . "INNER JOIN " . $log->getTable() . " lg ON t1.".$itemSelector." = lg.items_id AND itemtype='" . $className . "' ".$moreOnCriterais
+                . "WHERE new_value LIKE '% (" . $userID . ")' ".$retentionPeriodWhere
         ;
+            
         if (!$allUser) {
             $querySelect .= "AND users_id=$userID ";
         }
@@ -608,79 +595,93 @@ class PluginRgpdtoolsRgpdtools
             while ($row = $DB->fetch_assoc($results)) {
                 array_push($objectsIds, $row['id']);
             }
-            $query = "UPDATE " . $object->getTable() . " SET users_id=NULL WHERE id IN (" . implode(',', $objectsIds) . ")";
+            if($className == 'Ticket'){
+                $query = "DELETE FROM " . $object->getTable() . " WHERE id IN (" . implode(',', $objectsIds) . ")";
+            } else {
+                $query = "UPDATE " . $object->getTable() . " SET users_id=NULL WHERE id IN (" . implode(',', $objectsIds) . ")";
+            }
             $DB->query($query);
         }
 
         return $nbUnlinkedElmts;
     }
 
-    private static function anonymizeUserLogActivity($userID, $retentionPeriod)
-    {
+    private static function anonymizeUserLogActivity($userID, $retentionPeriod) {
         global $DB;
+        
+        // retention period string restriction
+        $retentionPeriodWhere = '';
+        if($retentionPeriod > 0) {
+            $date = new DateTime();
+            $date->sub(new DateInterval('P' . $retentionPeriod . 'M'));
+            $retentionPeriodWhere = " AND date_mod <= '" . $date->format('Y-m-d H:i:s') . "'";
+        }
 
         $date = new DateTime();
         $date->sub(new DateInterval('P' . $retentionPeriod . 'M'));
 
         $log = new Log();
         // delete logs wich user is at origin
-        $query = "DELETE FROM " . $log->getTable() . " WHERE user_name LIKE '% (" . $userID . ")' AND date_mod <= '" . $date->format('Y-m-d H:i:s') . "'";
+        $query = "DELETE FROM " . $log->getTable() . " WHERE user_name LIKE '% (" . $userID . ")'" . $retentionPeriodWhere;
         $DB->query($query);
 
         // anonymize logs wich are attch to the user
-        $query = "DELETE FROM " . $log->getTable() . " WHERE itemtype='User' AND items_id=" . $userID . " AND date_mod <= '" . $date->format('Y-m-d H:i:s') . "'";
+        $query = "DELETE FROM " . $log->getTable() . " WHERE itemtype='User' AND items_id=" . $userID  . $retentionPeriodWhere;
         $DB->query($query);
 
         // anonymize logs containing friendlyname of the user in old_value or new_value
         $user = new User();
         $user->getFromDB($userID);
         $friendlyName = $user->getFriendlyName();
-        $query = "UPDATE " . $log->getTable() . " SET old_value='&nbsp; (0)' WHERE old_value LIKE '%" . $friendlyName . "%' AND date_mod <= '" . $date->format('Y-m-d H:i:s') . "'";
-        $query = "UPDATE " . $log->getTable() . " SET new_value='&nbsp; (0)' WHERE new_value LIKE '%" . $friendlyName . "%' AND date_mod <= '" . $date->format('Y-m-d H:i:s') . "'";
-        $query = "UPDATE " . $log->getTable() . " SET new_value='&nbsp; (0)' WHERE itemtype_link='User' AND new_value LIKE '% (" . $userID . ")' AND date_mod <= '" . $date->format('Y-m-d H:i:s') . "'";
-        $query = "UPDATE " . $log->getTable() . " SET new_value='&nbsp; (0)' WHERE itemtype_link='User' AND new_value LIKE '% (" . $userID . ")' AND date_mod <= '" . $date->format('Y-m-d H:i:s') . "'";
+        $query = "UPDATE " . $log->getTable() . " SET old_value='&nbsp; (0)' WHERE old_value LIKE '%" . $friendlyName . "%'" . $retentionPeriodWhere;;
+        $query = "UPDATE " . $log->getTable() . " SET new_value='&nbsp; (0)' WHERE new_value LIKE '%" . $friendlyName . "%'" . $retentionPeriodWhere;
+        $query = "UPDATE " . $log->getTable() . " SET new_value='&nbsp; (0)' WHERE itemtype_link='User' AND new_value LIKE '% (" . $userID . ")'" . $retentionPeriodWhere;
+        $query = "UPDATE " . $log->getTable() . " SET new_value='&nbsp; (0)' WHERE itemtype_link='User' AND new_value LIKE '% (" . $userID . ")'" . $retentionPeriodWhere;
     }
 
-    private static function getUserSoftwares($computersIds)
-    {
+    private static function getUserSoftwares($computersIds) {
         global $DB;
         $softwares = [];
-        $query = "SELECT `glpi_softwares`.`name` AS `softname`, `glpi_items_softwareversions`.`id`, `glpi_states`.`name` AS `state`, `glpi_softwareversions`.`id` AS `verid`, `glpi_softwareversions`.`softwares_id`, `glpi_softwareversions`.`name` AS `version`, `glpi_softwares`.`is_valid` AS `softvalid`, `glpi_items_softwareversions`.`date_install` AS `dateinstall`
-        FROM `glpi_items_softwareversions`
-        LEFT JOIN `glpi_softwareversions` ON (`glpi_items_softwareversions`.`softwareversions_id` = `glpi_softwareversions`.`id`)
-        LEFT JOIN `glpi_states` ON (`glpi_softwareversions`.`states_id` = `glpi_states`.`id`)
-        LEFT JOIN `glpi_softwares` ON (`glpi_softwareversions`.`softwares_id` = `glpi_softwares`.`id`)
-        WHERE `glpi_items_softwareversions`.`items_id` IN (" . implode(',', $computersIds) . " ) AND `glpi_items_softwareversions`.`itemtype` = 'Computer' AND `glpi_items_softwareversions`.`is_deleted` = '0'
-        
-        ORDER BY `softname`, `version`";
+        if (is_array($computersIds) && count($computersIds)) {
+            $query = "SELECT `glpi_softwares`.`name` AS `softname`, `glpi_items_softwareversions`.`id`, `glpi_states`.`name` AS `state`, `glpi_softwareversions`.`id` AS `verid`, `glpi_softwareversions`.`softwares_id`, `glpi_softwareversions`.`name` AS `version`, `glpi_softwares`.`is_valid` AS `softvalid`, `glpi_items_softwareversions`.`date_install` AS `dateinstall`
+            FROM `glpi_items_softwareversions`
+            LEFT JOIN `glpi_softwareversions` ON (`glpi_items_softwareversions`.`softwareversions_id` = `glpi_softwareversions`.`id`)
+            LEFT JOIN `glpi_states` ON (`glpi_softwareversions`.`states_id` = `glpi_states`.`id`)
+            LEFT JOIN `glpi_softwares` ON (`glpi_softwareversions`.`softwares_id` = `glpi_softwares`.`id`)
+            WHERE `glpi_items_softwareversions`.`items_id` IN (" . implode(',', $computersIds) . " ) AND `glpi_items_softwareversions`.`itemtype` = 'Computer' AND `glpi_items_softwareversions`.`is_deleted` = '0'
 
-        $result = $DB->query($query);
-        while ($data = $DB->fetchAssoc($result)) {
-            $softwares[] = $data;
+            ORDER BY `softname`, `version`";
+
+            $result = $DB->query($query);
+            while ($data = $DB->fetchAssoc($result)) {
+                $softwares[] = $data;
+            }
         }
 
         return $softwares;
     }
 
-    private static function getUserSoftwareLicences($computersIds)
-    {
+    private static function getUserSoftwareLicences($computersIds) {
         global $DB;
-        $softwaresLicences = [];
-        $query = "SELECT tb.*
-        FROM `glpi_items_softwareversions`
-        LEFT JOIN `glpi_softwareversions` ON (`glpi_items_softwareversions`.`softwareversions_id` = `glpi_softwareversions`.`id`)
-        LEFT JOIN `glpi_states` ON (`glpi_softwareversions`.`states_id` = `glpi_states`.`id`)
-        LEFT JOIN `glpi_softwares` ON (`glpi_softwareversions`.`softwares_id` = `glpi_softwares`.`id`)
-        LEFT JOIN `glpi_softwarelicenses` tb ON (tb.`softwares_id` = `glpi_softwares`.`id`)
-        WHERE `glpi_items_softwareversions`.`items_id` IN (" . implode(',', $computersIds) . " ) AND `glpi_items_softwareversions`.`itemtype` = 'Computer' AND `glpi_items_softwareversions`.`is_deleted` = '0'
-        
-        ORDER BY tb.name";
+        $softwares = [];
+        if (is_array($computersIds) && count($computersIds)) {
+            $query = "SELECT tb.*
+            FROM `glpi_items_softwareversions`
+            LEFT JOIN `glpi_softwareversions` ON (`glpi_items_softwareversions`.`softwareversions_id` = `glpi_softwareversions`.`id`)
+            LEFT JOIN `glpi_states` ON (`glpi_softwareversions`.`states_id` = `glpi_states`.`id`)
+            LEFT JOIN `glpi_softwares` ON (`glpi_softwareversions`.`softwares_id` = `glpi_softwares`.`id`)
+            LEFT JOIN `glpi_softwarelicenses` tb ON (tb.`softwares_id` = `glpi_softwares`.`id`)
+            WHERE `glpi_items_softwareversions`.`items_id` IN (" . implode(',', $computersIds) . " ) AND `glpi_items_softwareversions`.`itemtype` = 'Computer' AND `glpi_items_softwareversions`.`is_deleted` = '0'
 
-        $result = $DB->query($query);
-        while ($data = $DB->fetchAssoc($result)) {
-            $softwares[] = $data;
+            ORDER BY tb.name";
+
+            $result = $DB->query($query);
+            while ($data = $DB->fetchAssoc($result)) {
+                $softwares[] = $data;
+            }
         }
 
         return $softwares;
     }
+
 }
