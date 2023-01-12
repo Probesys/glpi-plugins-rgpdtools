@@ -180,8 +180,8 @@ class PluginRgpdtoolsRgpdtools
         $rand = mt_rand();
         $idForm = "useritemsexport_form$rand";
 
-        $html .= "<div class='center'>";
-        $html .= "<form method='post' name='$idForm' id='$idForm'
+        $html .= "<div class='center card card-sm mb-3'>";
+        $html .= "<form method='post' name='$idForm' id='$idForm' target='_blank'
                   action=\"" . Plugin::getWebDir('rgpdtools') . "/front/rgpdtools.form.php\" onsubmit=\"return confirm('" . __('Are you sure you want to execute this operation', 'rgpdtools') . "?');\">";
         $html .= '<div class="spaced">';
 
@@ -251,7 +251,7 @@ class PluginRgpdtoolsRgpdtools
         }
 
         $idForm = "useritemsdelete_form$rand";
-        $html .= "<div class='center'>";
+        $html .= "<div class='center card card-sm mb-3'>";
         $html .= "<form method='post' name='$idForm' id='$idForm'
                   action=\"" . Plugin::getWebDir('rgpdtools') . "/front/rgpdtools.form.php\" onsubmit=\"return confirm('" . __('Are you sure you want to execute this operation', 'rgpdtools') . "?');\">";
         $html .= '<div class="spaced">';
@@ -355,7 +355,7 @@ class PluginRgpdtoolsRgpdtools
             $values[$i] = $i . ' ' . __('month');
         }
         $idForm = "userpurgelogs_form$rand";
-        $html .= "<div class='center'>";
+        $html .= "<div class='center card card-sm'>";
         $html .= "<form method='post' name='$idForm' id='$idForm'
                   action=\"" . Plugin::getWebDir('rgpdtools') . "/front/rgpdtools.form.php\" onsubmit=\"return confirm('" . __('Are you sure you want to execute this operation', 'rgpdtools') . "?');\">";
         $html .= '<div class="spaced">';
@@ -605,7 +605,7 @@ class PluginRgpdtoolsRgpdtools
         if ($nbUnlinkedElmts) {
             // construction du tableau des ids
             $objectsIds = [];
-            while ($row = $DB->fetch_assoc($results)) {
+            while ($row = $DB->fetchAssoc($results)) {
                 array_push($objectsIds, $row['id']);
             }
             $query = "UPDATE " . $object->getTable() . " SET users_id=NULL WHERE id IN (" . implode(',', $objectsIds) . ")";

@@ -28,8 +28,9 @@
  *
  * --------------------------------------------------------------------------
  */
-define('PLUGIN_RGPDTOOLS_VERSION', '0.1.3');
+define('PLUGIN_RGPDTOOLS_VERSION', '1.0.0');
 define('PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION', '9.5');
+define('PLUGIN_RGPDTOOLS_GLPI_MAX_VERSION', '11');
 if (!defined("PLUGIN_RGPDTOOLS_DIR")) {
     define('PLUGIN_RGPDTOOLS_DIR', Plugin::getPhpDir('rgpdtools'));
 }
@@ -81,14 +82,16 @@ function plugin_version_rgpdtools()
 }
 
 /**
- * Check pre-requisites before install
- * OPTIONNAL, but recommanded
- *
- * @return boolean
+ * Check plugin's prerequisites before installation
  */
 function plugin_rgpdtools_check_prerequisites()
 {
-    return true;
+    if (version_compare(GLPI_VERSION, PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION, 'lt') || version_compare(GLPI_VERSION, PLUGIN_RGPDTOOLS_GLPI_MAX_VERSION, 'ge')) {
+        echo __('This plugin requires GLPI >= ' . PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION . ' and GLPI < ' . PLUGIN_RGPDTOOLS_GLPI_MAX_VERSION . '<br>');
+    } else {
+        return true;
+    }
+    return false;
 }
 
 /**

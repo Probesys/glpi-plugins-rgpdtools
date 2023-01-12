@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RgpdTools 0.0.1\n"
 "Report-Msgid-Bugs-To: contact@probesys.com\n"
-"POT-Creation-Date: 2021-03-05 14:01+0100\n"
-"PO-Revision-Date: 2021-03-30 08:39+0200\n"
+"POT-Creation-Date: 2023-01-12 09:47+0100\n"
+"PO-Revision-Date: 2023-01-12 10:01+0100\n"
 "Last-Translator: probeSys <contact@probesys.com>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -18,7 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: setup.php:71 front/rgpdtools.form.php:35 inc/rgpdtools.class.php:47
+#: setup.php:71 front/rgpdtools.form.php:35 inc/rgpdtools.class.php:29
+#: inc/rgpdtools.class.php:48
 msgctxt "rgpdtools"
 msgid "RgpdTools"
 msgstr "Utilitaires RGPD"
@@ -27,6 +28,11 @@ msgstr "Utilitaires RGPD"
 msgctxt "rgpdtools"
 msgid "Export successfully generated."
 msgstr "Export généré avec succès."
+
+#: front/rgpdtools.form.php:18
+msgctxt "rgpdtools"
+msgid " link(s) with the user where deleted successfully"
+msgstr " lien(s) avec le(s) utilisateur(s) sélectionné(s) supprimé(s)"
 
 #: front/rgpdtools.form.php:20
 msgctxt "rgpdtools"
@@ -39,69 +45,79 @@ msgstr ""
 msgctxt "rgpdtools"
 msgid "Logs contains information about the user were anonymize successfully."
 msgstr ""
-"Les logs contenant des informations relatives à l'utilisateur ont été "
-"anonymisés avec succès."
+"Les logs contenant des informations relatives aux utilisateurs sélectionnés "
+"ont été anonymisés avec succès."
 
-#: inc/rgpdtools.class.php:10
+#: inc/rgpdtools.class.php:11
 msgctxt "rgpdtools"
 msgid "Run \"composer install --no-dev\" in the plugin tree"
 msgstr "Executer \"composer install --no-dev\" dans le dossier du plugin"
 
-#: inc/rgpdtools.class.php:180 inc/rgpdtools.class.php:250
-#: inc/rgpdtools.class.php:346
+#: inc/rgpdtools.class.php:71 inc/rgpdtools.class.php:102
+msgctxt "rgpdtools"
+msgid "user is required"
+msgstr "vous devez sélectionner un utilisateur"
+
+#: inc/rgpdtools.class.php:85
+msgctxt "rgpdtools"
+msgid "user is required or all user checkbox"
+msgstr "vous devez sélectionner un utilisateur ou tout les utilisateurs"
+
+#: inc/rgpdtools.class.php:185 inc/rgpdtools.class.php:256
+#: inc/rgpdtools.class.php:360
 msgctxt "rgpdtools"
 msgid "Are you sure you want to execute this operation"
 msgstr "Etes vous certain de vouloir exécuter cette opération"
 
-#: inc/rgpdtools.class.php:186
+#: inc/rgpdtools.class.php:191
 msgctxt "rgpdtools"
 msgid "Export users data"
 msgstr "Export des données de l'utilisateur"
 
-#: inc/rgpdtools.class.php:204
+#: inc/rgpdtools.class.php:209
 msgctxt "rgpdtools"
 msgid "Choosing what to export"
 msgstr "Sélectionner les éléments à exporter"
 
-#: inc/rgpdtools.class.php:255
+#: inc/rgpdtools.class.php:261
 msgctxt "rgpdtools"
 msgid "Removal of links to the user"
 msgstr "Suppression des liens vers l'utilisateur"
 
-#: inc/rgpdtools.class.php:273
+#: inc/rgpdtools.class.php:283
 msgctxt "rgpdtools"
 msgid "Choice of elements for which to remove links to the user"
 msgstr ""
 "Sélection des types d'éléments pour lesquels supprimer les liens avec "
 "l'utilisateur"
 
-#: inc/rgpdtools.class.php:274
+#: inc/rgpdtools.class.php:284
 msgctxt "rgpdtools"
 msgid "For each item, retention period"
 msgstr "Pour chaque type d'élément, durée de rétention"
 
-#: inc/rgpdtools.class.php:310
+#: inc/rgpdtools.class.php:320
 msgid "User"
 msgid_plural "User"
 msgstr[0] "Utilisateur"
 msgstr[1] "Utilisateurs"
 
-#: inc/rgpdtools.class.php:320
+#: inc/rgpdtools.class.php:334
 msgctxt "rgpdtools"
 msgid "Apply to all users"
 msgstr "Appliquer à tout les utilisateurs"
 
-#: inc/rgpdtools.class.php:351
+#: inc/rgpdtools.class.php:365
 msgctxt "rgpdtools"
 msgid "Purge logs referring to the user"
 msgstr "Suppression des logs faisant référence à l'utilisateur"
 
-#: inc/rgpdtools.class.php:355
+#: inc/rgpdtools.class.php:369
 msgctxt "rgpdtools"
 msgid "Retention Period"
 msgstr "Durée de rétention"
 
-#: inc/rgpdtools.class.php:523
+#: inc/rgpdtools.class.php:582
 #, php-format
 msgctxt "rgpdtools"
 msgid "The class %1$s can't be instanciate because not finded on GLPI."
