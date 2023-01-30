@@ -41,7 +41,8 @@
       </version>
       <version>
          <num>1.0.0</num>
-         <compatibility>10.O</compatibility>
+         <compatibility>~10.O</compatibility>
+         <download_url>https://github.com/Probesys/glpi-plugins-rgpdtools/releases/download/v1.0.0/rgpdtools.tgz</download_url>
       </version>
    </versions>
    <langs>
