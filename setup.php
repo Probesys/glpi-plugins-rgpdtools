@@ -44,8 +44,7 @@ if (!defined("PLUGIN_RGPDTOOLS_WEB_DIR")) {
  *
  * @return void
  */
-function plugin_init_rgpdtools()
-{
+function plugin_init_rgpdtools() {
     global $PLUGIN_HOOKS;
 
     $PLUGIN_HOOKS['csrf_compliant']['rgpdtools'] = true;
@@ -65,8 +64,7 @@ function plugin_init_rgpdtools()
  *
  * @return array
  */
-function plugin_version_rgpdtools()
-{
+function plugin_version_rgpdtools() {
     return [
         'name' => __('RgpdTools', 'rgpdtools'),
         'version' => PLUGIN_RGPDTOOLS_VERSION,
@@ -84,13 +82,12 @@ function plugin_version_rgpdtools()
 /**
  * Check plugin's prerequisites before installation
  */
-function plugin_rgpdtools_check_prerequisites()
-{
-    if (version_compare(GLPI_VERSION, PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION, 'lt') || version_compare(GLPI_VERSION, PLUGIN_RGPDTOOLS_GLPI_MAX_VERSION, 'ge')) {
-        echo __('This plugin requires GLPI >= ' . PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION . ' and GLPI < ' . PLUGIN_RGPDTOOLS_GLPI_MAX_VERSION . '<br>');
-    } else {
-        return true;
-    }
+function plugin_rgpdtools_check_prerequisites() {
+   if (version_compare(GLPI_VERSION, PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION, 'lt') || version_compare(GLPI_VERSION, PLUGIN_RGPDTOOLS_GLPI_MAX_VERSION, 'ge')) {
+       echo __('This plugin requires GLPI >= ' . PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION . ' and GLPI < ' . PLUGIN_RGPDTOOLS_GLPI_MAX_VERSION . '<br>');
+   } else {
+       return true;
+   }
     return false;
 }
 
@@ -101,14 +98,13 @@ function plugin_rgpdtools_check_prerequisites()
  *
  * @return boolean
  */
-function plugin_rgpdtools_check_config($verbose = false)
-{
-    if (true) { // Your configuration check
-        return true;
-    }
+function plugin_rgpdtools_check_config($verbose = false) {
+   if (true) { // Your configuration check
+       return true;
+   }
 
-    if ($verbose) {
-        echo __('Installed / not configured');
-    }
+   if ($verbose) {
+       echo __('Installed / not configured');
+   }
     return false;
 }

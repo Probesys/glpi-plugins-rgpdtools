@@ -1,9 +1,12 @@
 {
     "require": {
         "php": ">=4.2",
+        "consolidation/robo": "^2.2",
+        "glpi-project/coding-standard": "^0.8.0",
         "phpoffice/phpspreadsheet": "^1.17"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.19",
         "glpi-project/tools": "^0.1"
     },
     "config": {
@@ -11,6 +14,9 @@
         "platform": {
             "php": "7.2.0"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
