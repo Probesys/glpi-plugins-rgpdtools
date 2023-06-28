@@ -367,7 +367,7 @@ class RoboFile extends RoboFilePlugin
    public function codeHeadersUpdate() {
       $toUpdate = $this->getTrackedFiles('HEAD');
       foreach ($toUpdate as $file) {
-         
+
          $this->replaceSourceHeader($file);
       }
    }
@@ -451,8 +451,6 @@ class RoboFile extends RoboFilePlugin
       // get the content of the file to update
       $source = file_get_contents($filename);
 
-      
-
       // update authors in formated template
       $headerMatch = [];
       $originalAuthors = [];
@@ -486,14 +484,16 @@ class RoboFile extends RoboFilePlugin
       }
 
       // replace the header if it exists
-      if(!substr_count($filename , 'RoboFile')) {
-          $source = str_replace('##LICENCE_BLOC##',$formatedHeader, $source);
+      if (!substr_count($filename, 'RoboFile')) {
+         if (!substr_count($source, 'This file is part of')) {
+             $source = str_replace('<?php', $formatedHeader, $source);
+         } else {
+            $source = preg_replace('#^' . $prefix . '(.*)' . $suffix . '#Us', $formatedHeader, $source, 1);
+         }
       }
-      $source = preg_replace('#^' . $prefix . '(.*)' . $suffix . '#Us', $formatedHeader, $source, 1);
       if (empty($source)) {
          throw new \Exception("An error occurred while processing $filename");
       }
-      
 
       file_put_contents($filename, $source);
    }
