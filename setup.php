@@ -5,7 +5,7 @@
  *  ---------------------------------------------------------------------
  *  LICENSE
  *
- *  This file is part of rgpdTools.
+ *  This file is part of rgpdTools. ppppppppppp
  *
  *  rgpdTools is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,13 +21,13 @@
  *  along with Formcreator. If not, see <http://www.gnu.org/licenses/>.
  *  ---------------------------------------------------------------------
  *  @copyright Copyright © 2022-2023 probeSys'
- *  @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
+ *  @license   http://www.gnu.org/licenses/agpl.txt AGPLv3+
  *  @link      https://github.com/Probesys/glpi-plugins-rgpdtools
  *  @link      https://plugins.glpi-project.org/#/plugin/rgpdtools
  *  ---------------------------------------------------------------------
  */
 
-define('PLUGIN_RGPDTOOLS_VERSION', '1.0.0');
+define('PLUGIN_RGPDTOOLS_VERSION', '1.0.1');
 define('PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION', '9.5');
 define('PLUGIN_RGPDTOOLS_GLPI_MAX_VERSION', '11');
 if (!defined("PLUGIN_RGPDTOOLS_DIR")) {
