@@ -35,7 +35,7 @@ $autoload = dirname(__DIR__) . '/vendor/autoload.php';
 if (file_exists($autoload)) {
     require_once $autoload;
 } else {
-    echo __('Run "composer install --no-dev" in the plugin tree', 'rgpdtools');
+    echo __('Error during installation of the rgpdtools plugin, please run "php composer.phar install --no-dev" in the plugin tree', 'rgpdtools');
     die();
 }
 
