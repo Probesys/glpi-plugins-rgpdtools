@@ -47,15 +47,21 @@ if (isset($_REQUEST['deleteItems'])) {
        $message = __('No links matching criteria were founded, no update query were executed.', 'rgpdtools');
    }
 
-    Session::addMessageAfterRedirect(__($message, 'rgpdtools'), true);
-    Html::back();
+   Session::addMessageAfterRedirect(__($message, 'rgpdtools'), true);
+   Html::back();
 }
 
 if (isset($_REQUEST['purgeUserLogs'])) {
    if ($PluginRgpdtoolsRgpdtools::anonymizeUserLogs($_POST)) {
        Session::addMessageAfterRedirect(__('Logs contains information about the user were anonymize successfully.', 'rgpdtools'), true);
    }
-    Html::back();
+   Html::back();
+}
+
+if (isset($_REQUEST['deleteDocuments'])) {
+   $nbDeleteDocuments = $PluginRgpdtoolsRgpdtools::deleteUploadedDocuments($_POST);
+   Session::addMessageAfterRedirect($nbDeleteDocuments.' '.__('documents were deleted on server and database successfully.', 'rgpdtools'), true);
+   Html::back();
 }
 
 // standard form
