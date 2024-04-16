@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the RgpdTools package.
+# This file is distributed under the same license as the rgpdtools package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid   ""
-msgstr  "Project-Id-Version: RgpdTools 1.0.0\n"
+msgstr  "Project-Id-Version: rgpdtools 1.1.0\n"
         "Report-Msgid-Bugs-To: contact@probesys.com\n"
-        "POT-Creation-Date: 2023-01-12 09:47+0100\n"
+        "POT-Creation-Date: 2024-04-16 11:09+0200\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,103 +15,119 @@ msgstr  "Project-Id-Version: RgpdTools 1.0.0\n"
         "MIME-Version: 1.0\n"
         "Content-Type: text/plain; charset=CHARSET\n"
         "Content-Transfer-Encoding: 8bit\n"
-        "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: setup.php:71 front/rgpdtools.form.php:35 inc/rgpdtools.class.php:29
-#: inc/rgpdtools.class.php:48
+#: ../rgpdtools/setup.php:68 ../rgpdtools/front/rgpdtools.form.php:69
+#: ../rgpdtools/inc/rgpdtools.class.php:54
+#: ../rgpdtools/inc/rgpdtools.class.php:71
 msgctxt "rgpdtools"
 msgid   "RgpdTools"
 msgstr  ""
 
-#: front/rgpdtools.form.php:9
+#: ../rgpdtools/front/rgpdtools.form.php:36
 msgctxt "rgpdtools"
 msgid   "Export successfully generated."
 msgstr  ""
 
-#: front/rgpdtools.form.php:18
+#: ../rgpdtools/front/rgpdtools.form.php:45
 msgctxt "rgpdtools"
 msgid   " link(s) with the user where deleted successfully"
 msgstr  ""
 
-#: front/rgpdtools.form.php:20
+#: ../rgpdtools/front/rgpdtools.form.php:47
 msgctxt "rgpdtools"
 msgid   "No links matching criteria were founded, no update query were "
         "executed."
 msgstr  ""
 
-#: front/rgpdtools.form.php:29
+#: ../rgpdtools/front/rgpdtools.form.php:56
 msgctxt "rgpdtools"
 msgid   "Logs contains information about the user were anonymize successfully."
 msgstr  ""
 
-#: inc/rgpdtools.class.php:11
+#: ../rgpdtools/front/rgpdtools.form.php:63
 msgctxt "rgpdtools"
-msgid   "Run \"composer install --no-dev\" in the plugin tree"
+msgid   "documents were deleted on server and database successfully."
 msgstr  ""
 
-#: inc/rgpdtools.class.php:71 inc/rgpdtools.class.php:102
+#: ../rgpdtools/inc/rgpdtools.class.php:38
+msgctxt "rgpdtools"
+msgid   "Error during installation of the rgpdtools plugin, please run \"php "
+        "composer.phar install --no-dev\" in the plugin tree"
+msgstr  ""
+
+#: ../rgpdtools/inc/rgpdtools.class.php:91
+#: ../rgpdtools/inc/rgpdtools.class.php:120
 msgctxt "rgpdtools"
 msgid   "user is required"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:85
+#: ../rgpdtools/inc/rgpdtools.class.php:104
+#: ../rgpdtools/inc/rgpdtools.class.php:176
 msgctxt "rgpdtools"
 msgid   "user is required or all user checkbox"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:185 inc/rgpdtools.class.php:256
-#: inc/rgpdtools.class.php:360
+#: ../rgpdtools/inc/rgpdtools.class.php:223
+#: ../rgpdtools/inc/rgpdtools.class.php:294
+#: ../rgpdtools/inc/rgpdtools.class.php:398
+#: ../rgpdtools/inc/rgpdtools.class.php:444
 msgctxt "rgpdtools"
 msgid   "Are you sure you want to execute this operation"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:191
+#: ../rgpdtools/inc/rgpdtools.class.php:226
 msgctxt "rgpdtools"
 msgid   "Export users data"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:209
+#: ../rgpdtools/inc/rgpdtools.class.php:245
 msgctxt "rgpdtools"
 msgid   "Choosing what to export"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:261
+#: ../rgpdtools/inc/rgpdtools.class.php:297
 msgctxt "rgpdtools"
 msgid   "Removal of links to the user"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:283
+#: ../rgpdtools/inc/rgpdtools.class.php:320
 msgctxt "rgpdtools"
 msgid   "Choice of elements for which to remove links to the user"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:284
+#: ../rgpdtools/inc/rgpdtools.class.php:321
+#: ../rgpdtools/inc/rgpdtools.class.php:471
 msgctxt "rgpdtools"
 msgid   "For each item, retention period"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:320
-msgid   "User"
-msgid_plural    "User"
-msgstr[0]       ""
-msgstr[1]       ""
-
-#: inc/rgpdtools.class.php:334
+#: ../rgpdtools/inc/rgpdtools.class.php:372
 msgctxt "rgpdtools"
 msgid   "Apply to all users"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:365
+#: ../rgpdtools/inc/rgpdtools.class.php:401
 msgctxt "rgpdtools"
 msgid   "Purge logs referring to the user"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:369
+#: ../rgpdtools/inc/rgpdtools.class.php:406
 msgctxt "rgpdtools"
 msgid   "Retention Period"
 msgstr  ""
 
-#: inc/rgpdtools.class.php:582
+#: ../rgpdtools/inc/rgpdtools.class.php:447
+msgctxt "rgpdtools"
+msgid   "Delete old uploaded documents"
+msgstr  ""
+
+#: ../rgpdtools/inc/rgpdtools.class.php:470
+msgctxt "rgpdtools"
+msgid   "Choice of elements for which to delete uploaded documentss"
+msgstr  ""
+
+#: ../rgpdtools/inc/rgpdtools.class.php:690
+#: ../rgpdtools/inc/rgpdtools.class.php:729
 #, php-format
 msgctxt "rgpdtools"
 msgid   "The class %1$s can't be instanciate because not finded on GLPI."

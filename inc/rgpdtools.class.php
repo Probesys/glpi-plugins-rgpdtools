@@ -108,7 +108,7 @@ class PluginRgpdtoolsRgpdtools
        $retentionPeriods = $POST['retentionPeriods'];
        $nbUnlinkedElmts = 0;
       foreach ($deleteItemTypes as $itemType) {
-          $nbUnlinkedElmts += self::unlinkUserAssociateElementsToDate($userID, $itemType, $retentionPeriods[$itemType], $allUser);
+          $nbUnlinkedElmts += self::deleteDocumentsToDate($userID, $itemType, $retentionPeriods[$itemType], $allUser);
       }
 
        return $nbUnlinkedElmts;
@@ -168,6 +168,24 @@ class PluginRgpdtoolsRgpdtools
        $writer->save('php://output');
    }
 
+
+   public static function deleteUploadedDocuments($POST) {
+       $userID = $POST['userID'];
+       $allUser = array_key_exists('allUser', $POST);
+      if (!$userID && !$allUser) {
+           Session::addMessageAfterRedirect(__("user is required or all user checkbox", 'rgpdtools'), true, WARNING, true);
+           Html::redirect('rgpdtools.form.php');
+      }
+       $deleteItemTypes = $POST['deleteItemTypes'];
+       $retentionPeriods = $POST['retentionPeriods'];
+       $nbDeleteDocuments = 0;
+      foreach ($deleteItemTypes as $itemType) {
+          $nbDeleteDocuments += self::deleteDocumentsToDate($userID, $itemType, $retentionPeriods[$itemType], $allUser);
+      }
+
+       return $nbDeleteDocuments;
+   }
+
    private static function displayTabContentForUser(User $item) {
        $users_id = $item->getField('id');
        $itemsTypes = self::getUserAssociableItemTypes();
@@ -181,11 +199,15 @@ class PluginRgpdtoolsRgpdtools
 
    public function getFormsForCompleteForm() {
        $itemsTypes = self::getUserAssociableItemTypes();
-       $html = '';
+       $html = '<div class="row">';
        $users_id = null;
+
        $html .= self::generateExportForm($users_id, $itemsTypes);
-       $html .= self::generateUnlinkItemsForm($users_id, $itemsTypes);
        $html .= self::generateAnonymiseForm($users_id);
+       $html .= self::generateUnlinkItemsForm($users_id, $itemsTypes);
+       $html .= self::generateDeleteDocumentsForm($users_id, $itemsTypes);
+
+       $html .= '</div>';
 
        echo $html;
    }
@@ -195,16 +217,15 @@ class PluginRgpdtoolsRgpdtools
        $rand = mt_rand();
        $idForm = "useritemsexport_form$rand";
 
+       $html .= "<div class='col-md-6'>";
        $html .= "<div class='center card card-sm mb-3'>";
        $html .= "<form method='post' name='$idForm' id='$idForm' target='_blank'
                   action=\"" . Plugin::getWebDir('rgpdtools') . "/front/rgpdtools.form.php\" onsubmit=\"return confirm('" . __('Are you sure you want to execute this operation', 'rgpdtools') . "?');\">";
        $html .= '<div class="spaced">';
-
+       $html .= '<div class="card-body">';
+       $html .= '<h5 class="card-title">' . __('Export users data', 'rgpdtools') . '</h5>';
        $html .= "<table class='tab_cadre_fixe'>";
        $html .= '<tbody>';
-       $html .= '<tr class="headerRow center">';
-       $html .= '<th colspan="2">' . __('Export users data', 'rgpdtools') . '</th><th colspan="2" class=""></th>';
-       $html .= '</tr>';
        $html .= self::getUserIdBlock($users_id);
        $html .= '<tr class="tab_bg_2">';
        $html .= '<th>';
@@ -244,6 +265,8 @@ class PluginRgpdtoolsRgpdtools
        $html .= '</div>';
        $html .= Html::closeForm(false);
        $html .= "</div>";
+       $html .= "</div>";
+       $html .= "</div>";
 
        return $html;
    }
@@ -265,15 +288,15 @@ class PluginRgpdtoolsRgpdtools
        }
 
        $idForm = "useritemsdelete_form$rand";
+       $html .= "<div class='col-md-6'>";
        $html .= "<div class='center card card-sm mb-3'>";
        $html .= "<form method='post' name='$idForm' id='$idForm'
                   action=\"" . Plugin::getWebDir('rgpdtools') . "/front/rgpdtools.form.php\" onsubmit=\"return confirm('" . __('Are you sure you want to execute this operation', 'rgpdtools') . "?');\">";
        $html .= '<div class="spaced">';
+       $html .= '<div class="card-body">';
+       $html .= '<h5 class="card-title">' . __('Removal of links to the user', 'rgpdtools'). '</h5>';
        $html .= "<table class='tab_cadre_fixe'>";
        $html .= '<tbody>';
-       $html .= '<tr class="headerRow center">';
-       $html .= '<th colspan="2">' . __('Removal of links to the user', 'rgpdtools') . '</th><th colspan="2" class=""></th>';
-       $html .= '</tr>';
        $html .= self::getUserIdBlock($users_id, true);
        $html .= '</tbody>';
        $html .= "</table>";
@@ -318,6 +341,8 @@ class PluginRgpdtoolsRgpdtools
        $html .= "</table>";
        $html .= '</div>';
        $html .= Html::closeForm(false);
+       $html .= "</div>";
+       $html .= "</div>";
        $html .= "</div>";
 
        return $html;
@@ -367,15 +392,15 @@ class PluginRgpdtoolsRgpdtools
            $values[$i] = $i . ' ' . __('month');
        }
        $idForm = "userpurgelogs_form$rand";
-       $html .= "<div class='center card card-sm'>";
+       $html .= "<div class='col-md-6'>";
+       $html .= "<div class='center card card-sm mb-3'>";
        $html .= "<form method='post' name='$idForm' id='$idForm'
                   action=\"" . Plugin::getWebDir('rgpdtools') . "/front/rgpdtools.form.php\" onsubmit=\"return confirm('" . __('Are you sure you want to execute this operation', 'rgpdtools') . "?');\">";
        $html .= '<div class="spaced">';
+       $html .= '<div class="card-body">';
+       $html .= '<h5 class="card-title">' . __('Purge logs referring to the user', 'rgpdtools'). '</h5>';
        $html .= "<table class='tab_cadre_fixe'>";
        $html .= '<tbody>';
-       $html .= '<tr class="headerRow center">';
-       $html .= '<th colspan="2">' . __('Purge logs referring to the user', 'rgpdtools') . '</th><th colspan="2" class=""></th>';
-       $html .= '</tr>';
        $html .= self::getUserIdBlock($users_id);
        $html .= '<tr class="tab_bg_2">';
        $html .= '<td colspan="2">' . __('Retention Period', 'rgpdtools') . '</td>';
@@ -389,6 +414,85 @@ class PluginRgpdtoolsRgpdtools
        $html .= "</table>";
        $html .= '</div>';
        $html .= Html::closeForm(false);
+       $html .= "</div>";
+       $html .= "</div>";
+       $html .= "</div>";
+
+       return $html;
+   }
+
+   private static function generateDeleteDocumentsForm($users_id, $itemsTypes) {
+       $html = '';
+       $rand = mt_rand();
+
+       $config = [
+           'value' => 6,
+           'display' => false,
+           'values' => range(1, 100),
+           'class' => 'required',
+           'noselect2' => false
+       ];
+       $values = [];
+       for ($i = 0; $i < 100; $i++) {
+           $values[$i] = $i . ' ' . __('month');
+       }
+
+       $idForm = "deleteDocuments_form$rand";
+       $html .= "<div class='col-md-6'>";
+       $html .= "<div class='center card card-sm mb-3'>";
+       $html .= "<form method='post' name='$idForm' id='$idForm'
+                  action=\"" . Plugin::getWebDir('rgpdtools') . "/front/rgpdtools.form.php\" onsubmit=\"return confirm('" . __('Are you sure you want to execute this operation', 'rgpdtools') . "?');\">";
+       $html .= '<div class="spaced">';
+       $html .= '<div class="card-body">';
+       $html .= '<h5 class="card-title">' . __('Delete old uploaded documents', 'rgpdtools'). '</h5>';
+       $html .= "<table class='tab_cadre_fixe'>";
+       $html .= '<tbody>';
+       $html .= self::getUserIdBlock($users_id, true);
+       $html .= '</tbody>';
+       $html .= "</table>";
+       $html .= "<table class='tab_cadre_fixe' id='" . $idForm . "-checkable'>";
+       $html .= '<tbody>';
+       $html .= '<tr class="tab_bg_2">';
+       $html .= '<th>';
+       $html .= '<div class="form-group-checkbox">
+                  <input title="' . __('Check all') . '" type="checkbox" class="new_checkbox" name="_checkall_' . $rand . '" id="checkall_' . $rand . '" onclick="if ( checkAsCheckboxes(\'checkall_' . $rand . '\', \'' . $idForm . '-checkable\')) {return true;}">
+                  <label class="label-checkbox" for="checkall_' . $rand . '" title="' . __('Check all') . '">
+                     <span class="check"></span>
+                     <span class="box"></span>
+                  </label>
+               </div>
+               <script type="text/javascript">
+            //<![CDATA[
+            $(function() {$(\'#' . $idForm . '-checkable input[type="checkbox"] \').shiftSelectable();});
+            //]]>
+            </script></th>' . "\n";
+       $html .= '</th>';
+       $html .= '<th>' . __('Choice of elements for which to delete uploaded documentss', 'rgpdtools') . '</th>';
+       $html .= '<th colspan="2">' . __('For each item, retention period', 'rgpdtools') . '</th>';
+       $html .= '</tr>';
+
+       foreach ($itemsTypes as $itemType) {
+           $html .= '<tr class="tab_bg_2">';
+           $html .= '<td>';
+           $html .= '<span class="form-group-checkbox">';
+           $html .= '<input type="checkbox" class="new_checkbox" id="deleteItemTypes_' . $itemType . '" name="deleteItemTypes[]" value="' . $itemType . '" />';
+           $html .= '<label class="label-checkbox" title="" for="deleteItemTypes_' . $itemType . '"> <span class="check"></span> <span class="box"></span>&nbsp;</label>';
+           $html .= '</span>';
+           $html .= '</td>';
+           $html .= '<td>' . __($itemType) . '</td>';
+           $html_parts = Dropdown::showFromArray('retentionPeriods[' . $itemType . ']', $values, $config);
+           $html .= '<td colspan="2">' . $html_parts . '</td>';
+           $html .= '</tr>';
+       }
+       $html .= "<tr class='tab_bg_2'>";
+       $html .= "<th colspan='4' class='center'><input type='submit' name='deleteDocuments' value=\"" . __('Delete') . "\" class='vsubmit'></th>";
+       $html .= "</tr>";
+       $html .= '</tbody>';
+       $html .= "</table>";
+       $html .= '</div>';
+       $html .= Html::closeForm(false);
+       $html .= "</div>";
+       $html .= "</div>";
        $html .= "</div>";
 
        return $html;
@@ -617,6 +721,52 @@ class PluginRgpdtoolsRgpdtools
 
        return $nbUnlinkedElmts;
    }
+
+   private static function deleteDocumentsToDate($userID, $className, $retentionPeriod, $allUser = false) {
+       global $DB;
+      if (!class_exists($className)) {
+          $errorMessage = sprintf(
+              __('The class %1$s can\'t be instanciate because not finded on GLPI.', 'rgpdtools'),
+              $className
+          );
+          throw new \Exception($errorMessage);
+      }
+       $date = new DateTime();
+       $date->sub(new DateInterval('P' . $retentionPeriod . 'M'));
+
+       $document = new Document();
+       $documentItem = new Document_Item();
+       // recherche des éléments liés au user en bdd
+       $querySelect = "SELECT d1.* FROM " . $document->getTable() . " d1 "
+               . "INNER JOIN " . $documentItem->getTable() . " d2 ON d1.id = d2.documents_id "
+               . "WHERE d2.itemtype='" . $className . "' AND d2.date <= '" . $date->format('Y-m-d') . "' ";
+      if (!$allUser && $userID) {
+         $querySelect .= "AND d2.users_id=$userID ";
+      }
+
+       $results = $DB->query($querySelect);
+       $nbdeletedElmts = $DB->numrows($results);
+      if ($nbdeletedElmts) {
+          // construction du tableau des ids
+         while ($row = $DB->fetchAssoc($results)) {
+             // delete file on server
+             $filepath = GLPI_DOC_DIR.'/'.$row['filepath'];
+            if (file_exists($filepath)) {
+               unlink($filepath);
+            }
+             // delete Document_Item into database
+             $queryDeleteDocumentItem =  "DELETE FROM ".$documentItem->getTable()." WHERE documents_id=".$row['id'];
+             $DB->query($queryDeleteDocumentItem);
+             // delete Document into database
+             $queryDeleteDocument =  "DELETE FROM ".$document->getTable()." WHERE id=".$row['id'];
+             $DB->query($queryDeleteDocument);
+         }
+
+      }
+
+       return $nbdeletedElmts;
+   }
+
 
    private static function anonymizeUserLogActivity($userID, $retentionPeriod) {
        global $DB;
