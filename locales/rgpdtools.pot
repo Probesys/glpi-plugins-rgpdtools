@@ -123,7 +123,7 @@ msgstr  ""
 
 #: ../rgpdtools/inc/rgpdtools.class.php:470
 msgctxt "rgpdtools"
-msgid   "Choice of elements for which to delete uploaded documentss"
+msgid   "Choice of elements for which to delete uploaded documents"
 msgstr  ""
 
 #: ../rgpdtools/inc/rgpdtools.class.php:690

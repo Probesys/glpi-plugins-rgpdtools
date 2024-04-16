@@ -324,14 +324,14 @@ class PluginRgpdtoolsRgpdtools
        foreach ($itemsTypes as $itemType) {
            $html .= '<tr class="tab_bg_2">';
            $html .= '<td>';
-           $html .= '<span class="form-group-checkbox">';
-           $html .= '<input type="checkbox" class="new_checkbox" id="deleteItemTypes_' . $itemType . '" name="deleteItemTypes[]" value="' . $itemType . '" />';
+           $html .= '<div class="form-group form-check">';
+           $html .= '<input type="checkbox" class="new_checkbox form-check-input" id="deleteItemTypes_' . $itemType . '" name="deleteItemTypes[]" value="' . $itemType . '" />';
            $html .= '<label class="label-checkbox" title="" for="deleteItemTypes_' . $itemType . '"> <span class="check"></span> <span class="box"></span>&nbsp;</label>';
-           $html .= '</span>';
+           $html .= '</div>';
            $html .= '</td>';
            $html .= '<td>' . __($itemType) . '</td>';
            $html_parts = Dropdown::showFromArray('retentionPeriods[' . $itemType . ']', $values, $config);
-           $html .= '<td colspan="2">' . $html_parts . '</td>';
+           $html .= '<td>' . $html_parts . '</td>';
            $html .= '</tr>';
        }
        $html .= "<tr class='tab_bg_2'>";
@@ -467,21 +467,21 @@ class PluginRgpdtoolsRgpdtools
             //]]>
             </script></th>' . "\n";
        $html .= '</th>';
-       $html .= '<th>' . __('Choice of elements for which to delete uploaded documentss', 'rgpdtools') . '</th>';
-       $html .= '<th colspan="2">' . __('For each item, retention period', 'rgpdtools') . '</th>';
+       $html .= '<th>' . __('Choice of elements for which to delete uploaded documents', 'rgpdtools') . '</th>';
+       $html .= '<th>' . __('For each item, retention period', 'rgpdtools') . '</th>';
        $html .= '</tr>';
 
        foreach ($itemsTypes as $itemType) {
            $html .= '<tr class="tab_bg_2">';
-           $html .= '<td>';
-           $html .= '<span class="form-group-checkbox">';
-           $html .= '<input type="checkbox" class="new_checkbox" id="deleteItemTypes_' . $itemType . '" name="deleteItemTypes[]" value="' . $itemType . '" />';
-           $html .= '<label class="label-checkbox" title="" for="deleteItemTypes_' . $itemType . '"> <span class="check"></span> <span class="box"></span>&nbsp;</label>';
-           $html .= '</span>';
+           $html .= '<td colspan="2">';
+           $html .= '<div class="form-group form-check">';
+           $html .= '<input type="checkbox" class="new_checkbox form-check-input" id="deleteItemTypes_' . $itemType . '" name="deleteItemTypes[]" value="' . $itemType . '" />';
+           $html .= '<label class="form-check-label" title="" for="deleteItemTypes_' . $itemType . '"> <span class="check"></span> <span class="box"></span>'. __($itemType) .'</label>';
+           $html .= '</div>';
            $html .= '</td>';
-           $html .= '<td>' . __($itemType) . '</td>';
+           //$html .= '<td>' . __($itemType) . '</td>';
            $html_parts = Dropdown::showFromArray('retentionPeriods[' . $itemType . ']', $values, $config);
-           $html .= '<td colspan="2">' . $html_parts . '</td>';
+           $html .= '<td >' . $html_parts . '</td>';
            $html .= '</tr>';
        }
        $html .= "<tr class='tab_bg_2'>";

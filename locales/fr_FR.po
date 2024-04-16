@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: RgpdTools 0.0.1\n"
 "Report-Msgid-Bugs-To: contact@probesys.com\n"
 "POT-Creation-Date: 2024-04-16 11:09+0200\n"
-"PO-Revision-Date: 2024-04-16 11:34+0200\n"
+"PO-Revision-Date: 2024-04-16 11:41+0200\n"
 "Last-Translator: probeSys <contact@probesys.com>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -134,14 +134,9 @@ msgid "Delete old uploaded documents"
 msgstr "Supprimer tout les documents téléchargés"
 
 #: ../rgpdtools/inc/rgpdtools.class.php:470
-#, fuzzy
-#| msgctxt "rgpdtools"
-#| msgid "Choice of elements for which to remove links to the user"
 msgctxt "rgpdtools"
-msgid "Choice of elements for which to delete uploaded documentss"
-msgstr ""
-"Sélection des types d'éléments pour lesquels supprimer les liens avec "
-"l'utilisateur"
+msgid "Choice of elements for which to delete uploaded documents"
+msgstr "Sélection des types d'éléments pour lesquels supprimer les documents"
 
 #: ../rgpdtools/inc/rgpdtools.class.php:690
 #: ../rgpdtools/inc/rgpdtools.class.php:729
