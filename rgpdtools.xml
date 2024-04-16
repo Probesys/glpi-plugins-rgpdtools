@@ -49,6 +49,11 @@
          <compatibility>~10.O</compatibility>
          <download_url>https://github.com/Probesys/glpi-plugins-rgpdtools/releases/download/v1.0.1/rgpdtools-1.0.1.tbz</download_url>
       </version>
+      <version>
+         <num>1.1.0</num>
+         <compatibility>~10.O</compatibility>
+         <download_url>https://github.com/Probesys/glpi-plugins-rgpdtools/releases/download/v1.1.0/rgpdtools-1.1.0.tbz</download_url>
+      </version>
    </versions>
    <langs>
       <lang>fr_FR</lang>
