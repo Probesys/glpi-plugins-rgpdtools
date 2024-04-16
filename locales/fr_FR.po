@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RgpdTools 0.0.1\n"
 "Report-Msgid-Bugs-To: contact@probesys.com\n"
-"POT-Creation-Date: 2023-01-12 09:47+0100\n"
-"PO-Revision-Date: 2023-01-12 10:01+0100\n"
+"POT-Creation-Date: 2024-04-16 11:09+0200\n"
+"PO-Revision-Date: 2024-04-16 11:34+0200\n"
 "Last-Translator: probeSys <contact@probesys.com>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -16,110 +16,146 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
-#: setup.php:71 front/rgpdtools.form.php:35 inc/rgpdtools.class.php:29
-#: inc/rgpdtools.class.php:48
+#: ../rgpdtools/setup.php:68 ../rgpdtools/front/rgpdtools.form.php:69
+#: ../rgpdtools/inc/rgpdtools.class.php:54
+#: ../rgpdtools/inc/rgpdtools.class.php:71
 msgctxt "rgpdtools"
 msgid "RgpdTools"
 msgstr "Utilitaires RGPD"
 
-#: front/rgpdtools.form.php:9
+#: ../rgpdtools/front/rgpdtools.form.php:36
 msgctxt "rgpdtools"
 msgid "Export successfully generated."
 msgstr "Export généré avec succès."
 
-#: front/rgpdtools.form.php:18
+#: ../rgpdtools/front/rgpdtools.form.php:45
 msgctxt "rgpdtools"
 msgid " link(s) with the user where deleted successfully"
 msgstr " lien(s) avec le(s) utilisateur(s) sélectionné(s) supprimé(s)"
 
-#: front/rgpdtools.form.php:20
+#: ../rgpdtools/front/rgpdtools.form.php:47
 msgctxt "rgpdtools"
 msgid "No links matching criteria were founded, no update query were executed."
 msgstr ""
 "Aucun lien trouvé correspondant aux filtres, aucune requête de mise à jour "
 "exécutée."
 
-#: front/rgpdtools.form.php:29
+#: ../rgpdtools/front/rgpdtools.form.php:56
 msgctxt "rgpdtools"
 msgid "Logs contains information about the user were anonymize successfully."
 msgstr ""
 "Les logs contenant des informations relatives aux utilisateurs sélectionnés "
 "ont été anonymisés avec succès."
 
-#: inc/rgpdtools.class.php:11
+#: ../rgpdtools/front/rgpdtools.form.php:63
 msgctxt "rgpdtools"
-msgid "Run \"composer install --no-dev\" in the plugin tree"
-msgstr "Executer \"composer install --no-dev\" dans le dossier du plugin"
+msgid "documents were deleted on server and database successfully."
+msgstr ""
+"documents ont été supprimés du serveur et de la base de données avec succès."
 
-#: inc/rgpdtools.class.php:71 inc/rgpdtools.class.php:102
+#: ../rgpdtools/inc/rgpdtools.class.php:38
+msgctxt "rgpdtools"
+msgid ""
+"Error during installation of the rgpdtools plugin, please run \"php composer."
+"phar install --no-dev\" in the plugin tree"
+msgstr ""
+"Une erreur est survenue pendant l'installation du plugin rgpdtools, merci de "
+"lancer la commande  \"php composer.phar install --no-dev\" depuis le dossier "
+"du plugin"
+
+#: ../rgpdtools/inc/rgpdtools.class.php:91
+#: ../rgpdtools/inc/rgpdtools.class.php:120
 msgctxt "rgpdtools"
 msgid "user is required"
 msgstr "vous devez sélectionner un utilisateur"
 
-#: inc/rgpdtools.class.php:85
+#: ../rgpdtools/inc/rgpdtools.class.php:104
+#: ../rgpdtools/inc/rgpdtools.class.php:176
 msgctxt "rgpdtools"
 msgid "user is required or all user checkbox"
 msgstr "vous devez sélectionner un utilisateur ou tout les utilisateurs"
 
-#: inc/rgpdtools.class.php:185 inc/rgpdtools.class.php:256
-#: inc/rgpdtools.class.php:360
+#: ../rgpdtools/inc/rgpdtools.class.php:223
+#: ../rgpdtools/inc/rgpdtools.class.php:294
+#: ../rgpdtools/inc/rgpdtools.class.php:398
+#: ../rgpdtools/inc/rgpdtools.class.php:444
 msgctxt "rgpdtools"
 msgid "Are you sure you want to execute this operation"
 msgstr "Etes vous certain de vouloir exécuter cette opération"
 
-#: inc/rgpdtools.class.php:191
+#: ../rgpdtools/inc/rgpdtools.class.php:226
 msgctxt "rgpdtools"
 msgid "Export users data"
 msgstr "Export des données de l'utilisateur"
 
-#: inc/rgpdtools.class.php:209
+#: ../rgpdtools/inc/rgpdtools.class.php:245
 msgctxt "rgpdtools"
 msgid "Choosing what to export"
 msgstr "Sélectionner les éléments à exporter"
 
-#: inc/rgpdtools.class.php:261
+#: ../rgpdtools/inc/rgpdtools.class.php:297
 msgctxt "rgpdtools"
 msgid "Removal of links to the user"
 msgstr "Suppression des liens vers l'utilisateur"
 
-#: inc/rgpdtools.class.php:283
+#: ../rgpdtools/inc/rgpdtools.class.php:320
 msgctxt "rgpdtools"
 msgid "Choice of elements for which to remove links to the user"
 msgstr ""
 "Sélection des types d'éléments pour lesquels supprimer les liens avec "
 "l'utilisateur"
 
-#: inc/rgpdtools.class.php:284
+#: ../rgpdtools/inc/rgpdtools.class.php:321
+#: ../rgpdtools/inc/rgpdtools.class.php:471
 msgctxt "rgpdtools"
 msgid "For each item, retention period"
 msgstr "Pour chaque type d'élément, durée de rétention"
 
-#: inc/rgpdtools.class.php:320
-msgid "User"
-msgid_plural "User"
-msgstr[0] "Utilisateur"
-msgstr[1] "Utilisateurs"
-
-#: inc/rgpdtools.class.php:334
+#: ../rgpdtools/inc/rgpdtools.class.php:372
 msgctxt "rgpdtools"
 msgid "Apply to all users"
 msgstr "Appliquer à tout les utilisateurs"
 
-#: inc/rgpdtools.class.php:365
+#: ../rgpdtools/inc/rgpdtools.class.php:401
 msgctxt "rgpdtools"
 msgid "Purge logs referring to the user"
 msgstr "Suppression des logs faisant référence à l'utilisateur"
 
-#: inc/rgpdtools.class.php:369
+#: ../rgpdtools/inc/rgpdtools.class.php:406
 msgctxt "rgpdtools"
 msgid "Retention Period"
 msgstr "Durée de rétention"
 
-#: inc/rgpdtools.class.php:582
+#: ../rgpdtools/inc/rgpdtools.class.php:447
+msgctxt "rgpdtools"
+msgid "Delete old uploaded documents"
+msgstr "Supprimer tout les documents téléchargés"
+
+#: ../rgpdtools/inc/rgpdtools.class.php:470
+#, fuzzy
+#| msgctxt "rgpdtools"
+#| msgid "Choice of elements for which to remove links to the user"
+msgctxt "rgpdtools"
+msgid "Choice of elements for which to delete uploaded documentss"
+msgstr ""
+"Sélection des types d'éléments pour lesquels supprimer les liens avec "
+"l'utilisateur"
+
+#: ../rgpdtools/inc/rgpdtools.class.php:690
+#: ../rgpdtools/inc/rgpdtools.class.php:729
 #, php-format
 msgctxt "rgpdtools"
 msgid "The class %1$s can't be instanciate because not finded on GLPI."
 msgstr ""
 "La classe %1$s n'a pu être instancé car elle n'est pas présente dans GLPI."
+
+#~ msgctxt "rgpdtools"
+#~ msgid "Run \"composer install --no-dev\" in the plugin tree"
+#~ msgstr "Executer \"composer install --no-dev\" dans le dossier du plugin"
+
+#~ msgid "User"
+#~ msgid_plural "User"
+#~ msgstr[0] "Utilisateur"
+#~ msgstr[1] "Utilisateurs"
