@@ -203,7 +203,9 @@ class PluginRgpdtoolsRgpdtools
        $users_id = null;
 
        $html .= self::generateExportForm($users_id, $itemsTypes);
-       $html .= self::generateAnonymiseForm($users_id);
+       if(Session::haveRight(strtolower('logs'), READ)) {
+            $html .= self::generateAnonymiseForm($users_id);
+       }
        $html .= self::generateUnlinkItemsForm($users_id, $itemsTypes);
        $html .= self::generateDeleteDocumentsForm($users_id, $itemsTypes);
 
@@ -612,9 +614,17 @@ class PluginRgpdtoolsRgpdtools
    private static function getUserAssociableItemTypes() {
        global $CFG_GLPI;
 
-       $moreTypes = ['Ticket', 'ITILFollowup', 'TicketTask'];
+       $itemsTypes = ['Ticket', 'Followup', 'Task'];
 
-       return array_merge($CFG_GLPI['linkuser_types'], $moreTypes);
+       $linkuser_types = array_merge($CFG_GLPI['linkuser_types'], $itemsTypes);;
+       foreach($linkuser_types as $itemsType){
+           if(Session::haveRight(strtolower($itemsType), READ)){
+                $itemsTypes[]= $itemsType;
+           }
+       }
+      $itemsTypes = array_unique($itemsTypes);
+       
+      return $itemsTypes;
    }
 
    private static function injectRowHeader($spreadsheet, $objectInfos, $itemType) {

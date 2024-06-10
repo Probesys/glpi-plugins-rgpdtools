@@ -54,7 +54,9 @@ function plugin_init_rgpdtools() {
           'addtabon' => ['User'],
         ]
     );
-    $PLUGIN_HOOKS['menu_toadd']['rgpdtools'] = ['tools'   => 'PluginRgpdtoolsRgpdTools'];
+    if (Session::haveRight('user', PURGE)) {
+        $PLUGIN_HOOKS['menu_toadd']['rgpdtools'] = ['tools'   => 'PluginRgpdtoolsRgpdTools'];
+    }
 }
 
 /**
