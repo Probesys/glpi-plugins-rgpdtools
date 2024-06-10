@@ -27,7 +27,7 @@
  *  ---------------------------------------------------------------------
  */
 
-define('PLUGIN_RGPDTOOLS_VERSION', '1.1.0');
+define('PLUGIN_RGPDTOOLS_VERSION', '1.1.1');
 define('PLUGIN_RGPDTOOLS_GLPI_MIN_VERSION', '9.5');
 define('PLUGIN_RGPDTOOLS_GLPI_MAX_VERSION', '11');
 if (!defined("PLUGIN_RGPDTOOLS_DIR")) {
@@ -54,7 +54,9 @@ function plugin_init_rgpdtools() {
           'addtabon' => ['User'],
         ]
     );
-    $PLUGIN_HOOKS['menu_toadd']['rgpdtools'] = ['tools'   => 'PluginRgpdtoolsRgpdTools'];
+    if (Session::haveRight('user', PURGE)) {
+        $PLUGIN_HOOKS['menu_toadd']['rgpdtools'] = ['tools'   => 'PluginRgpdtoolsRgpdTools'];
+    }
 }
 
 /**
