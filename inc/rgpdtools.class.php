@@ -198,23 +198,26 @@ class PluginRgpdtoolsRgpdtools
    }
 
    public function getFormsForCompleteForm() {
-       $itemsTypes = self::getUserAssociableItemTypes();
+       
        $html = '<div class="row">';
        $users_id = null;
 
-       $html .= self::generateExportForm($users_id, $itemsTypes);
+       $html .= self::generateExportForm($users_id);
        if(Session::haveRight(strtolower('logs'), READ)) {
             $html .= self::generateAnonymiseForm($users_id);
        }
-       $html .= self::generateUnlinkItemsForm($users_id, $itemsTypes);
-       $html .= self::generateDeleteDocumentsForm($users_id, $itemsTypes);
+       $html .= self::generateUnlinkItemsForm($users_id);
+       if(Session::haveRight(strtolower('document'), UPDATE)) {
+        $html .= self::generateDeleteDocumentsForm($users_id);
+       }
 
        $html .= '</div>';
 
        echo $html;
    }
 
-   private static function generateExportForm($users_id, $itemsTypes) {
+   private static function generateExportForm($users_id) {
+       $itemsTypes = self::getUserAssociableItemTypes(READ);
        $html = '';
        $rand = mt_rand();
        $idForm = "useritemsexport_form$rand";
@@ -273,7 +276,8 @@ class PluginRgpdtoolsRgpdtools
        return $html;
    }
 
-   private static function generateUnlinkItemsForm($users_id, $itemsTypes) {
+   private static function generateUnlinkItemsForm($users_id) {
+       $itemsTypes = self::getUserAssociableItemTypes(UPDATE);
        $html = '';
        $rand = mt_rand();
 
@@ -423,7 +427,8 @@ class PluginRgpdtoolsRgpdtools
        return $html;
    }
 
-   private static function generateDeleteDocumentsForm($users_id, $itemsTypes) {
+   private static function generateDeleteDocumentsForm($users_id) {
+       $itemsTypes = self::getUserAssociableItemTypes(UPDATE);
        $html = '';
        $rand = mt_rand();
 
@@ -611,14 +616,14 @@ class PluginRgpdtoolsRgpdtools
        return $items;
    }
 
-   private static function getUserAssociableItemTypes() {
+   private static function getUserAssociableItemTypes($permissionAccess = READ) {
        global $CFG_GLPI;
 
        $itemsTypes = ['Ticket', 'Followup', 'Task'];
 
        $linkuser_types = array_merge($CFG_GLPI['linkuser_types'], $itemsTypes);;
        foreach($linkuser_types as $itemsType){
-           if(Session::haveRight(strtolower($itemsType), READ)){
+           if(Session::haveRight(strtolower($itemsType), $permissionAccess)){
                 $itemsTypes[]= $itemsType;
            }
        }
