@@ -137,10 +137,11 @@ class PluginRgpdtoolsRgpdtools
        self::injectRowHeader($spreadsheet, $objectInfos, 'User');
        self::injectRowValues($spreadsheet, $objectInfos, 2, 'User');
 
-       // récupération des éléments associés au user
-       $allUsedItems = self::getAllUsedItemsForUser($userID);
-       // pour chaque élément séléctionné ajout d'un onglet
        $itemTypes = $POST['itemTypes'];
+       // récupération des éléments associés au user
+       $allUsedItems = self::getAllUsedItemsForUser($userID, $itemTypes);
+       // pour chaque élément séléctionné ajout d'un onglet
+       
       foreach ($itemTypes as $itemType) {
           $nbWorkSheet++;
           $new_ws = new Worksheet($spreadsheet, $itemType);
@@ -188,10 +189,9 @@ class PluginRgpdtoolsRgpdtools
 
    private static function displayTabContentForUser(User $item) {
        $users_id = $item->getField('id');
-       $itemsTypes = self::getUserAssociableItemTypes();
        $html = '';
-       $html .= self::generateExportForm($users_id, $itemsTypes);
-       $html .= self::generateUnlinkItemsForm($users_id, $itemsTypes);
+       $html .= self::generateExportForm($users_id);
+       $html .= self::generateUnlinkItemsForm($users_id);
        $html .= self::generateAnonymiseForm($users_id);
 
        echo $html;
@@ -257,7 +257,7 @@ class PluginRgpdtoolsRgpdtools
           $html .= '<label class="label-checkbox" title="" for="itemTypes_' . $itemType . '"> <span class="check"></span> <span class="box"></span>&nbsp;</label>';
           $html .= '</span>';
           $html .= '</td>';
-          $html .= '<td>' . __($itemType) . '</td>';
+          $html .= '<td>' . __(str_replace(['ItilFollowup', 'TicketTask'],['Followup', 'Task'],$itemType)) . '</td>';
           $html .= '<td colspan="2"></td>';
           $html .= '</tr>';
       }
@@ -329,13 +329,12 @@ class PluginRgpdtoolsRgpdtools
 
        foreach ($itemsTypes as $itemType) {
            $html .= '<tr class="tab_bg_2">';
-           $html .= '<td>';
+           $html .= '<td colspan="2">';
            $html .= '<div class="form-group form-check">';
-           $html .= '<input type="checkbox" class="new_checkbox form-check-input" id="deleteItemTypes_' . $itemType . '" name="deleteItemTypes[]" value="' . $itemType . '" />';
-           $html .= '<label class="label-checkbox" title="" for="deleteItemTypes_' . $itemType . '"> <span class="check"></span> <span class="box"></span>&nbsp;</label>';
+           $html .= '<input type="checkbox" class="new_checkbox form-check-input" id="deleteItemTypes_' . $itemType . '" name="deleteItemTypes[]" value="' . $itemType . '" />';           
+           $html .= '<label class="form-check-label" title="" for="deleteItemTypes_' . $itemType . '"> <span class="check"></span> <span class="box"></span>'. __(str_replace(['ItilFollowup', 'TicketTask'],['Followup', 'Task'],$itemType)) .'</label>';
            $html .= '</div>';
            $html .= '</td>';
-           $html .= '<td>' . __($itemType) . '</td>';
            $html_parts = Dropdown::showFromArray('retentionPeriods[' . $itemType . ']', $values, $config);
            $html .= '<td>' . $html_parts . '</td>';
            $html .= '</tr>';
@@ -483,10 +482,9 @@ class PluginRgpdtoolsRgpdtools
            $html .= '<td colspan="2">';
            $html .= '<div class="form-group form-check">';
            $html .= '<input type="checkbox" class="new_checkbox form-check-input" id="deleteItemTypes_' . $itemType . '" name="deleteItemTypes[]" value="' . $itemType . '" />';
-           $html .= '<label class="form-check-label" title="" for="deleteItemTypes_' . $itemType . '"> <span class="check"></span> <span class="box"></span>'. __($itemType) .'</label>';
+           $html .= '<label class="form-check-label" title="" for="deleteItemTypes_' . $itemType . '"> <span class="check"></span> <span class="box"></span>'. __(str_replace(['ItilFollowup', 'TicketTask'],['Followup', 'Task'],$itemType)) .'</label>';
            $html .= '</div>';
            $html .= '</td>';
-           //$html .= '<td>' . __($itemType) . '</td>';
            $html_parts = Dropdown::showFromArray('retentionPeriods[' . $itemType . ']', $values, $config);
            $html .= '<td >' . $html_parts . '</td>';
            $html .= '</tr>';
@@ -510,12 +508,12 @@ class PluginRgpdtoolsRgpdtools
      * @param ID of user
      * @return array
      */
-   private static function getAllUsedItemsForUser($ID) {
+   private static function getAllUsedItemsForUser($ID, $itemTypes) {
        global $DB;
 
        $items = [];
 
-      foreach (self::getUserAssociableItemTypes() as $itemtype) {
+      foreach ($itemTypes as $itemtype) {
          if (!($item = getItemForItemtype($itemtype))) {
             continue;
          }
@@ -568,30 +566,32 @@ class PluginRgpdtoolsRgpdtools
       }
 
        // Tickets
-       $tickets = $DB->request(
-           [
-                   'SELECT' => ['*'],
-                   //'DISTINCT' => true,
-                   'FROM' => Ticket::getTable(),
-                   'LEFT JOIN' => [
-                       Ticket_User::getTable() => [
-                           'FKEY' => [
-                               Ticket::getTable() => 'id',
-                               Ticket_User::getTable() => 'tickets_id'
-                           ]
-                       ]
-                   ],
-                   'WHERE' => [
-                       'OR' => [
-                           'users_id_recipient' => $ID,
-                           'users_id' => $ID
-                       ],
-                   ],
-                   'ORDER' => 'date'
-               ]
-       );
-      foreach ($tickets as $data) {
-          $items['Ticket'][] = $data;
+      if($itemtype == 'Ticket') {
+            $tickets = $DB->request(
+                [
+                        'SELECT' => ['t.*'],
+                        'DISTINCT' => true,
+                        'FROM' => Ticket::getTable().' AS t',
+                        'INNER JOIN' => [
+                            Ticket_User::getTable() => [
+                                'FKEY' => [
+                                    't' => 'id',
+                                    Ticket_User::getTable() => 'tickets_id'
+                                ]
+                            ]
+                        ],
+                        'WHERE' => [
+                            'OR' => [
+                                'users_id_recipient' => $ID,
+                                'users_id' => $ID
+                            ],
+                        ],
+                        'ORDER' => 'date'
+                    ]
+            );
+           foreach ($tickets as $data) {
+               $items['Ticket'][] = $data;
+           }
       }
 
        // getComputersIDs
@@ -619,7 +619,7 @@ class PluginRgpdtoolsRgpdtools
    private static function getUserAssociableItemTypes($permissionAccess = READ) {
        global $CFG_GLPI;
 
-       $itemsTypes = ['Ticket', 'Followup', 'Task'];
+       $itemsTypes = ['Ticket', 'ItilFollowup', 'TicketTask'];
 
        $linkuser_types = array_merge($CFG_GLPI['linkuser_types'], $itemsTypes);;
        foreach($linkuser_types as $itemsType){
