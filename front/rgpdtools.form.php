@@ -27,6 +27,8 @@
  *  ---------------------------------------------------------------------
  */
 
+
+define('GLPI_USE_CSRF_CHECK', false);
 include('../../../inc/includes.php');
 
 if (!Session::haveRight('user', PURGE)) { 
@@ -34,13 +36,14 @@ if (!Session::haveRight('user', PURGE)) {
     echo '<h4 class="alert-title">'. __('Access denied', 'glpi') .'</h4>';
     Html::footer();
 } else {
+    $_POST['_glpi_csrf_token'] = Session::getNewCSRFToken();    
     $PluginRgpdtoolsRgpdtools = new PluginRgpdtoolsRgpdtools();
 
     if (isset($_REQUEST['generate'])) {
        if ($PluginRgpdtoolsRgpdtools::generateExport($_POST)) {
            Session::addMessageAfterRedirect(__('Export successfully generated.', 'rgpdtools'), true);
        }
-        //Html::back();
+       Html::back();
     }
 
     if (isset($_REQUEST['deleteItems'])) {
@@ -70,10 +73,8 @@ if (!Session::haveRight('user', PURGE)) {
     }
 
     // standard form
-    if (!isset($_REQUEST['generate'])) {
-        Html::header(__('RgpdTools', 'rgpdtools'), $_SERVER['PHP_SELF'], 'tools', 'rgpdtools');
-        $PluginRgpdtoolsRgpdtools = new PluginRgpdtoolsRgpdtools();
-        $PluginRgpdtoolsRgpdtools->getFormsForCompleteForm();
-        Html::footer();
-    }
+    Html::header(__('RgpdTools', 'rgpdtools'), $_SERVER['PHP_SELF'], 'tools', 'rgpdtools');
+    $PluginRgpdtoolsRgpdtools = new PluginRgpdtoolsRgpdtools();
+    $PluginRgpdtoolsRgpdtools->getFormsForCompleteForm();
+    Html::footer();
 }

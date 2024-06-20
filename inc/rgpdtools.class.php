@@ -517,26 +517,54 @@ class PluginRgpdtoolsRgpdtools {
             if (!($item = getItemForItemtype($itemtype))) {
                 continue;
             }
-            if ($item->canView() && !in_array($itemtype, ['Ticket'])) {
+            if ($item->canView()) {
                 $itemtable = getTableForItemType($itemtype);
 
-                $query = "SELECT *
-                      FROM `$itemtable`
-                      WHERE `users_id` = '$ID'";
+                if (in_array($itemtype, ['Ticket'])) {
+                    $tickets = $DB->request(
+                            [
+                                'SELECT' => ['t.*'],
+                                'DISTINCT' => true,
+                                'FROM' => Ticket::getTable() . ' AS t',
+                                'INNER JOIN' => [
+                                    Ticket_User::getTable() => [
+                                        'FKEY' => [
+                                            't' => 'id',
+                                            Ticket_User::getTable() => 'tickets_id'
+                                        ]
+                                    ]
+                                ],
+                                'WHERE' => [
+                                    'OR' => [
+                                        'users_id_recipient' => $ID,
+                                        'users_id' => $ID
+                                    ],
+                                ],
+                                'ORDER' => 'date'
+                            ]
+                    );
+                    foreach ($tickets as $data) {
+                        $items['Ticket'][] = $data;
+                    }
+                } else {
+                    $query = "SELECT *
+                          FROM `$itemtable`
+                          WHERE `users_id` = '$ID'";
 
-                if ($item->maybeTemplate()) {
-                    $query .= " AND `is_template` = '0' ";
-                }
-                if ($item->maybeDeleted()) {
-                    $query .= " AND `is_deleted` = '0' ";
-                }
-                $result = $DB->query($query);
+                    if ($item->maybeTemplate()) {
+                        $query .= " AND `is_template` = '0' ";
+                    }
+                    if ($item->maybeDeleted()) {
+                        $query .= " AND `is_deleted` = '0' ";
+                    }
+                    $result = $DB->query($query);
 
-                $type_name = $item->getTypeName();
+                    $type_name = $item->getTypeName();
 
-                if ($DB->numrows($result) > 0) {
-                    while ($data = $DB->fetchAssoc($result)) {
-                        $items[$itemtype][] = $data;
+                    if ($DB->numrows($result) > 0) {
+                        while ($data = $DB->fetchAssoc($result)) {
+                            $items[$itemtype][] = $data;
+                        }
                     }
                 }
             }
@@ -563,35 +591,6 @@ class PluginRgpdtoolsRgpdtools {
         );
         foreach ($consumables as $data) {
             $items['ConsumableItem'][] = $data;
-        }
-
-        // Tickets
-        if ($itemtype == 'Ticket') {
-            $tickets = $DB->request(
-                    [
-                        'SELECT' => ['t.*'],
-                        'DISTINCT' => true,
-                        'FROM' => Ticket::getTable() . ' AS t',
-                        'INNER JOIN' => [
-                            Ticket_User::getTable() => [
-                                'FKEY' => [
-                                    't' => 'id',
-                                    Ticket_User::getTable() => 'tickets_id'
-                                ]
-                            ]
-                        ],
-                        'WHERE' => [
-                            'OR' => [
-                                'users_id_recipient' => $ID,
-                                'users_id' => $ID
-                            ],
-                        ],
-                        'ORDER' => 'date'
-                    ]
-            );
-            foreach ($tickets as $data) {
-                $items['Ticket'][] = $data;
-            }
         }
 
         // getComputersIDs
@@ -703,8 +702,7 @@ class PluginRgpdtoolsRgpdtools {
 
         global $DB;
         $className = str_replace(['ItilFollowup'], ['ITILFollowup'], $className);
-        
-        
+
         if (!class_exists($className)) {
             $errorMessage = sprintf(
                     __('The class %1$s can\'t be instanciate because not finded on GLPI.', 'rgpdtools'),
@@ -751,7 +749,7 @@ class PluginRgpdtoolsRgpdtools {
         }
         foreach ($queriesUpdate as $queryDelete) {
             $resultDelete = $DB->query($queryDelete);
-            if($resultDelete){
+            if ($resultDelete) {
                 $rowcountResult = $DB->query("SELECT ROW_COUNT() as DelRowCount");
                 $row = $DB->fetchAssoc($rowcountResult);
                 $nbUnlinkedElmts += $row['DelRowCount'];
@@ -763,6 +761,7 @@ class PluginRgpdtoolsRgpdtools {
 
     private static function deleteDocumentsToDate($userID, $className, $retentionPeriod, $allUser = false) {
         global $DB;
+        $className = str_replace(['ItilFollowup'], ['ITILFollowup'], $className);
         if (!class_exists($className)) {
             $errorMessage = sprintf(
                     __('The class %1$s can\'t be instanciate because not finded on GLPI.', 'rgpdtools'),
