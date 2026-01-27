@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This GLPI plugin is no longer maintained and is provided as-is without warranty.
+
 # RgpdTools GLPI plugin
 
 This plugin offer tools to manage RGPD user informations.
